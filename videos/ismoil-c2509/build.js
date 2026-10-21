@@ -106,7 +106,7 @@ function sheetHTML(s) {
     inner = `<div class="q-mark" id="${s.id}-qm" data-layout-allow-overflow>?</div>
     <div class="q-box">
       <div class="q-tag" id="${s.id}-tag"><b>SAVOL</b><i>${esc(s.num)}</i></div>
-      <div class="q-text">${qw}</div>
+      <div class="q-text" style="font-size:${s.size || 84}px">${qw}</div>
     </div>`;
   } else if (s.type === "cta") {
     // { setup:[[w,t]], key:[[w,t]], handle, handleT }
@@ -213,13 +213,14 @@ html,body{margin:0;background:#000}
 .n-row b{display:inline-block;width:56px;color:#fff}
 .cap{position:absolute;left:110px;right:110px;top:1360px;visibility:hidden;text-align:center;transform:translateY(-50%)}
 .capin{font-weight:800;font-size:58px;line-height:1.22;letter-spacing:-.02em;color:#fff;text-shadow:0 3px 14px rgba(0,0,0,.6)}
-.cw{display:inline-block;padding:0 10px;margin:0 -4px;border-radius:12px;background:rgba(227,23,30,0)}
+.cw{display:inline-block;padding:0 8px;margin:0 -7px;border-radius:12px;background:rgba(227,23,30,0)}
 .q-box{position:relative;z-index:2;width:780px}
 .q-tag{display:inline-flex;align-items:center;gap:16px;margin-bottom:34px;opacity:0}
 .q-tag b{background:var(--red);color:#fff;font-weight:900;font-size:34px;letter-spacing:.14em;padding:12px 22px 10px;border-radius:8px}
 .q-tag i{font-style:normal;font-weight:800;font-size:40px;color:rgba(0,0,0,.35)}
 .q-text{font-weight:900;font-size:84px;line-height:1.1;letter-spacing:-.04em;color:var(--ink);text-align:left}
 .qk{position:relative;isolation:isolate;color:#fff}
+.qk .band{left:-8px;right:-8px}
 .q-mark{position:absolute;right:-60px;bottom:180px;font-weight:900;font-size:900px;line-height:1;color:rgba(227,23,30,.07);z-index:1}
 .handle{display:block;margin-top:40px;font-weight:800;font-size:52px;color:var(--red)}
 </style>
