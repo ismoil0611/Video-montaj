@@ -3,3 +3,5 @@ videos/*/work/
 videos/*/public/src.mp4
 videos/*/*.mp4
 .hyperframes/
+videos/*/.output.hf-transaction-*/
+videos/*/work-*/
