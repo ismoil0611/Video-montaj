@@ -1,9 +1,9 @@
 // ismoil-seq01 — beat plan. Times = word onsets from whisper large-v3 (uz), text rebuilt by hand.
-// Source cuts: 18.50, 24.13, 36.47, 41.60 (black to the end) — each sits under a full-screen sheet.
+// Source cuts: 18.50, 24.13, 36.47 — each sits under a full-screen sheet. Video ends at 41.60 (source is black after).
 // Shots: 0–18.5 wide walking (y≈1250), 18.5–36.5 medium (y≈1230), 36.5–41.6 close-up (y≈1420).
 module.exports = {
   id: "seq01",
-  duration: 44.467,
+  duration: 41.6,
   groups: [
     { a: 0.07, b: 1.1, y: 1250, lines: [{ c: "k", w: [["Marketologman", 0.07]] }] },
     {
@@ -83,6 +83,13 @@ module.exports = {
         { c: "s", w: [["qidirayotgan", 39.03], ["boʻlsangiz,", 39.55]] },
       ],
     },
+    {
+      a: 40.02, b: 41.9, y: 1420,
+      lines: [
+        { c: "s", w: [["hamkorlikka", 40.02]] },
+        { c: "k", band: true, w: [["tayyormiz.", 40.65]] },
+      ],
+    },
   ],
   sheets: [
     {
@@ -109,10 +116,6 @@ module.exports = {
     {
       id: "fsMarketing", type: "paper", enter: "slide", a: 35.85, b: 38.74,
       key: [["Marketing", 36.19]], sub: [["loyihalarni", 37.48], ["bajara", 38.03], ["oladigan", 38.48]],
-    },
-    {
-      id: "fsCta", type: "cta", enter: "slide", a: 39.98, b: 44.467,
-      setup: [["hamkorlikka", 40.02]], key: [["tayyormiz.", 40.65]],
     },
   ],
 };
