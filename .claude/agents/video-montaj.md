@@ -30,11 +30,11 @@ You are a Reels video editor. You put designed motion overlays on top of real fo
 - **SFX volume always -35 dB** → `data-volume="0.0178"` on every SFX `<audio>`, no per-effect volumes. Speech/source audio = 1. SFX only on real events (whoosh on sheet in/out, soft click/pop on card, tick on counters) — sparse, never on every word.
 - **No background music** unless asked. If music is supplied, lay it continuously and match the loudness of any original music bed.
 - **Instagram safe zone (1080×1920):** nothing above y≈200; nothing below y≈1500 (username/caption); nothing at x>890–930 when y>1000 (like/comment/share rail). Speaker cards: left 60 / right 190, bottom ≤1480. Full-screen text: `left:150px; right:150px`.
-- **No plain mid/bottom subtitle lines** by default — glass cards + motion text instead. (If subtitles are explicitly requested: white Apple pills, every word visible, active word highlighted, never inside full-screen motion blocks, never during the CTA.)
+- **Kinetic speech text is the default (owner's request, 2026-10):** while the person speaks, show what they say as designed kinetic text on the chest (§7) — small light "setup" words + one big bold "key" word, word groups synced to speech. Never a plain one-line subtitle bar. The **important moments** (numbers, money, the main claim, the hook, contrasts, the CTA) become **full-screen motion sheets** (§7).
 - **No animated zoom.** No scale tweens on footage, no punch-in/push-in, no `back.out` scale pops. A static scale is fine.
 - **Soft easing:** `expo.out` for reveals (0.6–0.8 s), `power3.inOut` for sheets/wipes, `power2.in` for exits (0.4–0.45 s), or `cubic-bezier(.5,0,.5,1)` / `(.65,0,.35,1)`. Exit by slide/blur-fade, never by pop.
 - **Hide every source cut:** a full-screen sheet starts ~0.4 s before the cut so it fully covers the frame exactly on the cut; exit after it. Transitions into/out of black gaps must keep a solid panel over the frame the whole time — no footage peeking for a few frames.
-- **Keep the speaker's real background.** No cutout / background removal unless asked. Instead add 1–2 person-free full-screen motion blocks of ~7–8 s (wipe in, wipe out). After a cut, the next ~4 s can be full-screen motion.
+- **Keep the speaker's real background.** No cutout / background removal unless asked. Instead add person-free full-screen motion sheets on the important moments (§7: ~1 every 8–12 s, 1.5–4 s each). After a cut, the next ~4 s can be full-screen motion.
 - **Group / meeting / multi-person footage:** people are the content → only compact cards at the top (top ≈250–300, y 300–700, x 60..890), small fonts (~40 px title, 26 px rows, 96 px big number), no full-screen blocks covering people (except the logo outro).
 - **Card position by shot:** wide shot → card ABOVE the head (`top:250px`); close-up → card low on the chest (`top≈925`) or in the subtitle slot (`bottom:440px`, hide subtitles while it shows). Never cover the face.
 - **Leave b-roll clean** — no overlays over cut-away footage.
@@ -119,7 +119,60 @@ Name card (name + role + experience chip) · stat card with ring + count-up · c
 - **Documentary / history** — grey radial vignette, monochrome cut-outs, archival photo cards, word-by-word captions with marker highlights, sketches + a world map.
 - **Editorial pill** — white Apple-pill subtitles (active word blue), black tag labels + Instrument Serif italic numbers.
 
-# 7. Before you say "done"
+# 7. DEFAULT STYLE — "Kinetic Reels" (learned from the owner's 5 reference videos)
+
+The owner's videos must look like this unless they say otherwise. Two layers: **(A) kinetic speech text over the speaker** and **(B) full-screen motion sheets on important moments**. Pick one colour mode per video (light-red, dark-red-glow or editorial-serif) and stay consistent.
+
+## 7.1 Typography system (the heart of the style)
+Every text group = **2–3 sizes / weights in one stack, centred**:
+- **setup words** — small (40–48 px at 1080w), light/regular weight, white (on footage) or #1a1a1a (on paper). Example: "in its whole", "then this", "So as we are".
+- **KEY word** — huge (110–150 px), heaviest weight (800–900), tight tracking (-0.04em), often with a hard soft-shadow `0 10px 24px rgba(0,0,0,.35)`. Only 1–2 words: the meaning of the sentence ("video", "$15,000", "growing &", "10K", "simple way").
+- **accent word** — script/handwriting font (italic, 70–90 px), placed under/over the key word, slightly overlapping it: "you", "journey.", "rewrite", "tired". Or an elegant serif italic in editorial mode.
+- Fonts: Montserrat 800/900 (or Gilroy-like) for key + Montserrat 400–500 for setup; script = "Great Vibes" / "Allura" / "Mrs Saint Delafield"; editorial serif = "Instrument Serif" / "Playfair Display" italic. All local woff2 with latin-ext (oʻ gʻ).
+- Groups are 2–6 words. A new group replaces the previous one (old one blurs out up, new one blurs in) — never a scrolling subtitle line.
+
+## 7.2 Colour modes
+- **Light-red (default)** — paper `#F2F1EF`→`#FFFFFF` with a soft diagonal window-shadow gradient + 3% grain; ink `#141414`; accent red `#E3171E` (deep `#B10F14`). On footage: white text + red accents.
+- **Dark-red-glow** — pure black `#050505` with soft vignette; white text with glow `0 0 24px rgba(255,255,255,.35)`; key words red `#FF2A2A` with red glow `0 0 30px rgba(255,30,30,.55)`. For hooks / dramatic lines.
+- **Editorial-serif** — warm grey paper `#D9D7D2` with film grain + slight VHS line texture, black serif italic text, very calm; monochrome images. For storytelling / history.
+Red is the only accent colour; never rainbow.
+
+## 7.3 Speech-text treatments (on the speaker, chest area y≈1000–1350, centred x 150..930)
+1. **Blur-rise word reveal** (default): each word `opacity 0, y +30, blur 14px → 1, 0, 0`, 0.35–0.5 s `expo.out`, staggered by the real word time from the transcript.
+2. **Red band highlight**: a red rectangle (`#E3171E`, 0.6em tall, slight 1–2° skew optional) wipes in `scaleX 0→1` from the left *behind* the key word, 0.35 s `power3.out`, starting ~0.1 s after the word appears. Used on numbers/money/names ("$15,000", "Saturday,", "reel").
+3. **Red swoosh underline**: a hand-drawn red arc (SVG path, 4–6 px, round caps) drawn under the key word with `draw()` 0.4 s. Used on emotional words ("video", "scripting").
+4. **Script accent**: script word fades in with a small x-slide (−20 px→0) 0.5 s, overlapping the key word's lower edge.
+5. **Exit**: whole group `opacity→0, y −20, blur 10px` 0.3 s `power2.in`, right before the next group.
+Keep the face clear: text block never above the chin; on close-ups sit on the chest / mic area.
+
+## 7.4 Full-screen motion sheets (important moments)
+Trigger on: the hook (first 1–2 s if strong), every number / money / stat, the core claim, a "before → after" or contrast, a list, the CTA. ~1 sheet every 8–12 s, 1.5–4 s each, aligned to the spoken phrase. Hide a source cut under a sheet whenever possible.
+- **Entry/exit**: hard cut or a fast 0.25 s white flash-dissolve is what the references use; a 0.5 s `power3.inOut` slide-up wipe is also fine. Return to the speaker with a hard cut on a word.
+- **Paper sheet + 3D-shadow text** (signature): light paper bg with diagonal shadow, small setup line first ("So as we are"), then the KEY word in white with red band behind it and a long soft drop-shadow, so it looks like it's lifted off the paper (`text-shadow: 0 18px 30px rgba(0,0,0,.28)`). Optional faint graph-paper grid (1px #000 @6%, 60px cells) fading in around a huge number.
+- **Huge number**: "10K" style — 300–380 px, deep red gradient `#E3171E→#8E0B0F`, 3D extrude look (stacked text-shadows `1px 1px 0 #7a0a0d … 8px 8px 0`), over the grid; the setup word above ("cross"), caption below ("followers mark,").
+- **Word-sliding sheet**: two key phrases slide horizontally (x +1080 → 0 → −1080) one after another on paper ("founders," → "content creators").
+- **Icon + label**: one 3D-ish icon/emoji (file + magnifier, clown, money case, keyboard) centred, key word with red band under it, small line below. Icons from local PNG/SVG only.
+- **Dark glow sheet**: black bg, words appear one by one with blur-in, red key word glowing ("Because **content** without an **audience**").
+- **List card**: grey sticky note pinned with a red pin, bold title + 2–4 rows with small icons, rows pop in on the spoken word ("Value / No eyeballs / No impact / No earnings").
+- **Ghost background word**: a giant (300–420 px) outlined or 8%-opacity word behind the main text, slowly drifting x (−40 px over the sheet) ("DISCIPLINE", "MOTIVATION", "GET UP").
+- **Editorial word sheet**: grey grain paper, one small black serif line in the centre, words added one by one ("At first / it sounded / impossible").
+- **Circle-wipe transition**: a black (or red) circle grows from the centre to cover the frame (0.35 s), next scene starts inside it.
+- Small decorations allowed: ✦✦✦ sparkles, a thin line with a 4-point star, a barcode/label sticker in a corner — sparse.
+
+## 7.5 Rhythm
+- Something changes every 0.5–1.5 s (a new word group, a highlight, a sheet). No static 3-second stretches.
+- Speech text groups follow the transcript word timings exactly (quantized to frames).
+- SFX: soft whoosh on sheet in, soft pop/click on red band, at -35 dB as always.
+
+## 7.6 Reference inventory (what each video taught)
+Contact sheets (every 0.5 s, timestamps) and close-up stills live in `references/kinetic-reels/` — open them to re-check a look before building.
+- **ref-1 (Netflix story)**: serif italic white words on footage, short phrases, yellow marker underline under one word, framed-photo intro, logo stinger. → editorial-serif mode + underline.
+- **ref-2 (talking head, mic)**: the main template — chest-level stacked text (setup + bold key + script accent), red band, red swoosh, full-screen white paper sheets with 3D red text, "10K" over grid. → default mode.
+- **ref-3 (motivation)**: beige paper with window shadows, light serif + bold sans pair, giant ghost words behind, sparkles and thin star lines, dark sheet with blur ring. → ghost word + sparkles.
+- **ref-4 (growth)**: black glow text with red key words alternating with cream sheets, emoji/icon + text, pinned list card, circle wipes, CTA "Hit the DM button". → dark-red-glow mode, list card, circle wipe.
+- **ref-5 (history of money)**: grey grain paper, small centred serif lines, object cut-outs on paper, VHS texture. → editorial word sheet.
+
+# 8. Before you say "done"
 
 - Snapshots checked: safe zone, no face covered, every cut covered, nothing flashing for 1–3 frames, fonts correct, Uzbek spelling correct.
 - All SFX at 0.0178. No music unless asked. No zoom tweens.
