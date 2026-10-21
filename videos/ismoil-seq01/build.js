@@ -51,7 +51,7 @@ function sheetHTML(s) {
   const word = (txt, t, cls, id) => `<span class="sw-w ${cls || ""}" ${id ? `id="${id}"` : ""} data-t="${t}">${esc(txt)}</span>`;
   if (s.type === "paper") {
     // { ghost?, setup:[[w,t]], key:[[w,t]], sub?:[[w,t]], script?:[w,t] }
-    inner = `${s.ghost ? `<div class="ghost" id="${s.id}-ghost">${esc(s.ghost)}</div>` : ""}
+    inner = `${s.ghost ? `<div class="ghost" id="${s.id}-ghost" data-layout-allow-overflow>${esc(s.ghost)}</div>` : ""}
     <div class="stack">
       ${s.script ? `<div class="p-script">${word(s.script[0], s.script[1])}</div>` : ""}
       <div class="p-setup">${s.setup.map(([w, t]) => word(w, t)).join(" ")}</div>
