@@ -6,7 +6,7 @@ const D = require("./data.js");
 
 const FPS = 30;
 const q = (t) => Math.round(t * FPS) / FPS;
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const esc = (s) => String(s).replace(/\u02BB/g, "\u2018").replace(/\u02BC/g, "\u2019").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 // ---------- speech groups ----------
 // group: { a, b, y, lines: [ { c: 's'|'k'|'a', band?, swoosh?, w: [[word, t], ...] } ] }
@@ -150,8 +150,8 @@ html,body{margin:0;background:#000}
 .sw path{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
 /* sheets */
 .fs{position:absolute;inset:0;visibility:hidden;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.fs.paper{background:linear-gradient(118deg,#fbfbfa 0%,#efeeec 38%,#fdfdfc 52%,#e9e8e5 74%,#f7f7f6 100%);color:var(--ink)}
-.fs.paper::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(118deg,rgba(0,0,0,0) 0 180px,rgba(0,0,0,.035) 180px 300px);pointer-events:none}
+.fs.paper{background:radial-gradient(ellipse at 30% 20%,#ffffff 0%,#f3f2f0 55%,#e7e6e3 100%);color:var(--ink)}
+.fs.paper::after{content:"";position:absolute;inset:-10%;background:linear-gradient(118deg,rgba(0,0,0,0) 18%,rgba(0,0,0,.055) 30%,rgba(0,0,0,0) 42%,rgba(0,0,0,0) 58%,rgba(0,0,0,.045) 70%,rgba(0,0,0,0) 82%);filter:blur(30px);pointer-events:none}
 .fs.dark{background:radial-gradient(ellipse at 50% 45%,#141414 0%,#050505 70%);color:#fff}
 .stack{position:relative;z-index:2;text-align:center;padding:0 150px}
 .sw-w{display:inline-block;opacity:0}
@@ -161,7 +161,7 @@ html,body{margin:0;background:#000}
 .fs.paper .p-key .k{color:#fff}
 .p-sub{font-weight:500;font-size:46px;margin-top:22px;color:#2a2a2a}
 .ghost{position:absolute;top:50%;left:-200px;transform:translateY(-50%);white-space:nowrap;font-weight:900;font-size:400px;letter-spacing:-.06em;color:rgba(0,0,0,.06);z-index:1}
-.grid{position:absolute;left:140px;right:140px;top:560px;bottom:560px;background-image:linear-gradient(rgba(0,0,0,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.08) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse at center,#000 35%,transparent 72%);mask-image:radial-gradient(ellipse at center,#000 35%,transparent 72%);opacity:0}
+.grid{position:absolute;left:140px;right:140px;top:560px;bottom:560px;background-image:linear-gradient(rgba(0,0,0,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.11) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse at center,#000 35%,transparent 72%);mask-image:radial-gradient(ellipse at center,#000 35%,transparent 72%);opacity:0}
 .n-big{font-weight:900;font-size:330px;line-height:.95;letter-spacing:-.06em;color:var(--red);background:linear-gradient(180deg,#F0262C 0%,#B30F15 60%,#7E0A0E 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(6px 8px 0 #6d080b) drop-shadow(0 30px 40px rgba(0,0,0,.25));opacity:0}
 .d-row{font-weight:800;font-size:96px;letter-spacing:-.04em;line-height:1.08;text-shadow:0 0 26px rgba(255,255,255,.28)}
 .d-row .red{color:#FF2A2A;text-shadow:0 0 34px rgba(255,30,30,.6)}
