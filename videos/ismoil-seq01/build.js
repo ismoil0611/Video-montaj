@@ -20,7 +20,9 @@ function groupHTML(g, gi) {
       const sw = ln.swoosh
         ? `<svg class="sw" id="g${gi}l${li}sw" viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M8 30 C 90 6, 200 4, 292 22" pathLength="1"/></svg>`
         : "";
-      return `<div class="ln ${ln.c}"><span class="lnin">${band}${words}${sw}</span></div>`;
+      const len = ln.w.map(([w]) => w).join(" ").length;
+      const fit = ln.c === "k" ? ` style="font-size:${Math.min(118, Math.floor(780 / (len * 0.66)))}px"` : "";
+      return `<div class="ln ${ln.c}"${fit}><span class="lnin">${band}${words}${sw}</span></div>`;
     })
     .join("");
   return `<div class="grp" id="g${gi}" style="top:${g.y || 1180}px">${lines}</div>`;
@@ -44,6 +46,7 @@ function groupJS(g, gi) {
 }
 
 // ---------- full-screen sheets ----------
+const keyFit = (key) => Math.min(136, Math.floor(780 / (key.map(([w]) => w).join(" ").length * 0.66)));
 // sheet: { id, type, a, b, enter: 'slide'|'circle'|'cut', ...content }
 function sheetHTML(s) {
   const bg = s.type === "dark" ? "dark" : "paper";
@@ -54,8 +57,8 @@ function sheetHTML(s) {
     inner = `${s.ghost ? `<div class="ghost" id="${s.id}-ghost" data-layout-allow-overflow>${esc(s.ghost)}</div>` : ""}
     <div class="stack">
       ${s.script ? `<div class="p-script">${word(s.script[0], s.script[1])}</div>` : ""}
-      <div class="p-setup">${s.setup.map(([w, t]) => word(w, t)).join(" ")}</div>
-      <div class="p-key"><u class="band" id="${s.id}-band"></u>${s.key.map(([w, t]) => word(w, t, "k")).join(" ")}</div>
+      ${s.setup ? `<div class="p-setup">${s.setup.map(([w, t]) => word(w, t)).join(" ")}</div>` : ""}
+      <div class="p-key" style="font-size:${keyFit(s.key)}px"><u class="band" id="${s.id}-band"></u>${s.key.map(([w, t]) => word(w, t, "k")).join(" ")}</div>
       ${s.sub ? `<div class="p-sub">${s.sub.map(([w, t]) => word(w, t)).join(" ")}</div>` : ""}
     </div>`;
   } else if (s.type === "num") {
@@ -80,8 +83,8 @@ function sheetHTML(s) {
   } else if (s.type === "cta") {
     // { setup:[[w,t]], key:[[w,t]], handle, handleT }
     inner = `<div class="stack">
-      <div class="p-setup">${s.setup.map(([w, t]) => word(w, t)).join(" ")}</div>
-      <div class="p-key"><u class="band" id="${s.id}-band"></u>${s.key.map(([w, t]) => word(w, t, "k")).join(" ")}</div>
+      ${s.setup ? `<div class="p-setup">${s.setup.map(([w, t]) => word(w, t)).join(" ")}</div>` : ""}
+      <div class="p-key" style="font-size:${keyFit(s.key)}px"><u class="band" id="${s.id}-band"></u>${s.key.map(([w, t]) => word(w, t, "k")).join(" ")}</div>
       ${s.handle ? `<div class="handle sw-w" data-t="${s.handleT}">${esc(s.handle)}</div>` : ""}
     </div>`;
   }
@@ -144,7 +147,7 @@ html,body{margin:0;background:#000}
 .ln.s{font-weight:500;font-size:46px;letter-spacing:-.01em;text-shadow:0 2px 12px rgba(0,0,0,.45);margin-bottom:6px}
 .ln.k{font-weight:900;font-size:118px;letter-spacing:-.045em;text-shadow:0 12px 26px rgba(0,0,0,.45)}
 .ln.a{font-family:"KR Script",cursive;font-weight:400;font-size:96px;margin-top:-14px;text-shadow:0 4px 14px rgba(0,0,0,.5)}
-.band{position:absolute;left:-14px;right:-14px;top:22%;height:62%;background:var(--red);z-index:-1;transform-origin:0 50%;display:block;text-decoration:none}
+.band{position:absolute;left:-16px;right:-16px;top:14%;height:78%;background:var(--red);z-index:-1;transform-origin:0 50%;display:block;text-decoration:none}
 .lnin{isolation:isolate}
 .sw{position:absolute;left:4%;width:92%;bottom:-34px;height:40px;overflow:visible}
 .sw path{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
