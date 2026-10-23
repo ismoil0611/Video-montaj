@@ -130,7 +130,7 @@ function sheetHTML(s) {
     inner = `<div class="cardx" id="${s.id}-card">
       <div class="cx-lines">${s.lines.map(([w, t]) => word(w, t)).join(" ")}</div>
       <div class="cx-pill" id="${s.id}-pill">${s.pill.map(([w, t]) => word(w, t)).join(" ")}</div>
-      <div class="cx-hero">${word(s.hero[0], s.hero[1], "hero")}</div>
+      <div class="cx-hero" style="font-size:${Math.min(128, Math.floor(650 / (s.hero[0].length * 0.62)))}px">${word(s.hero[0], s.hero[1], "hero")}</div>
       ${s.heroSub ? `<div class="cx-sub">${s.heroSub.map(([w, t]) => word(w, t)).join(" ")}</div>` : ""}
     </div>`;
   } else if (s.type === "count") {
@@ -249,7 +249,7 @@ html,body{margin:0;background:#000}
 .w{display:inline-block;opacity:0}
 .ln.s{font-weight:500;font-size:46px;letter-spacing:-.01em;text-shadow:0 2px 12px rgba(0,0,0,.45);margin-bottom:6px}
 .ln.k{font-weight:900;font-size:118px;letter-spacing:-.045em;text-shadow:0 12px 26px rgba(0,0,0,.45)}
-.ln.a{font-family:"KR Script",cursive;font-weight:400;font-size:96px;margin-top:-14px;text-shadow:0 4px 14px rgba(0,0,0,.5)}
+.ln.a{font-family:"KR Script",cursive;font-weight:400;font-size:96px;margin-top:-2px;text-shadow:0 4px 14px rgba(0,0,0,.5)}
 .band{position:absolute;left:-16px;right:-16px;top:14%;height:78%;background:var(--red);z-index:-1;transform-origin:0 50%;display:block;text-decoration:none}
 .lnin{isolation:isolate}
 .sw{position:absolute;left:4%;width:92%;bottom:-34px;height:40px;overflow:visible}
@@ -332,6 +332,8 @@ ${D.sheets.map(sheetHTML).join("\n")}
  ${D.groups.map(groupJS).join("\n ")}
  ${caps.map(capJS).join("\n ")}
  ${pills.map(pillJS).join("\n ")}
+ ${(D.flashes || []).map((t) => `tl.set("#flash",{visibility:"visible",opacity:1},${q(t - 0.067)});tl.to("#flash",{opacity:0,duration:.2,ease:"power2.out"},${q(t)});tl.set("#flash",{visibility:"hidden"},${q(t + 0.2)});sfx(${q(t - 0.1)},"flash");`).join("\n ")}
+ ${(D.sfx || []).map(([t, k]) => `sfx(${q(t)},"${k}");`).join("\n ")}
  ${D.sheets.map(sheetJS).join("\n ")}
  window.__timelines["${D.id}"]=tl;
 })();
