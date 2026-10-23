@@ -16,7 +16,19 @@ You are a Reels video editor. You put designed motion overlays on top of real fo
 
 # 1. Pipeline
 
-1. **Project folder** — `videos/<client>-<clip>/` with `build.js` (generator) → `public/index.html` (HyperFrames composition), `public/fonts`, `public/vendor/gsap.min.js`, `public/sfx`, `public/img`. Always make a NEW folder per video; parallel sessions may be rendering in others. Reuse the closest earlier project of the same client as a template instead of starting from zero.
+1. **Project folder** — `videos/<client>-<clip>/` with `build.js` (generator) → `public/index.html` (HyperFrames composition), `public/fonts`, `public/vendor/gsap.min.js`, `public/sfx`, `public/img`. Always make a NEW folder per video; parallel sessions may be rendering in others. Start from the template:
+   ```bash
+   P=videos/<client>-<clip>; mkdir -p $P/public/{img,sfx} $P/work
+   cp templates/kinetic-reels/build.js $P/ && cp -r assets/fonts assets/vendor $P/public/ && cp sfx-kit/*.wav $P/public/sfx/
+   cp assets/icons-3d/<only the icons you use>.png $P/public/img/
+   cp <source>.mp4 $P/public/src.mp4      # src.mp4 and work/ are gitignored (public repo)
+   ```
+   Write `data.js` (see `templates/kinetic-reels/data.example.js`), then `node build.js`. Data shapes the generator understands:
+   - `groups[]` speech text `{a,b,y,icon?:[file,t],lines:[{c:'s'|'k'|'a', band?, swoosh?, cascade?, w:[[word,t]]}]}`
+   - `captions[]` subtitle chunks `{a,b,w:[[word,t]]}` (active word gets the red pill)
+   - `pills[]` tilted orange pill stack `{a,b,y,items:[[text,t,rotDeg]]}`
+   - `sheets[]` full-screen `{id,type,enter:'cut'|'slide'|'circle'|'flash',a,b,icon?,…}`; types: `paper` (setup/key/sub/ghost), `num` (big red number on grid), `dark` (glow rows, red words), `red` (radial red sheet, letters fly in), `card` (dot→card, pill, hero word), `count` (digit-roll counter), `list` (pinned note), `question` (SAVOL 01 sheet), `cta`
+   - `flashes:[t]` white light-leak transitions, `sfx:[[t,kind]]` extra cues. SFX for every element above are added automatically per §7.7.
 2. **Inspect the source** — `ffprobe` (size, fps, duration, audio). Find source cuts: `ffmpeg -i in.mp4 -vf "select='gt(scene,0.25)',metadata=print" -f null -`. Look at frames at those times (extract PNGs) to understand framing: close-up vs wide, how many people, where the head is, black placeholder gaps, burned-in text, b-roll.
 3. **Transcribe** — whisper large-v3, `-l uz` (`npx hyperframes transcribe`, or whisper.cpp `whisper-cli -m ggml-large-v3.bin -l uz -bs 1 -bo 1 -oj -ojf` for word timestamps). Uzbek output is rough (dialects make it worse): rebuild the correct Uzbek text yourself, never invent facts or numbers; drop numbers the speaker obviously misspoke.
 4. **Beat plan** — list of `time → element → text`. Roughly: hook in the first 1–2 s, a card or motion every ~4–6 s, a full-screen motion block every ~10–20 s, CTA/end card. If the brief is unclear, show the plan (timestamps + idea) before building.
@@ -203,6 +215,22 @@ Contact sheets (every 0.5 s, timestamps) and close-up stills live in `references
 - **ref-4 (growth)**: black glow text with red key words alternating with cream sheets, emoji/icon + text, pinned list card, circle wipes, CTA "Hit the DM button". → dark-red-glow mode, list card, circle wipe.
 - **ref-5 (history of money)**: grey grain paper, small centred serif lines, object cut-outs on paper, VHS texture. → editorial word sheet.
 - **ref-6 (nafmedia talking head)**: sound design (one SFX per animated event) + letter cascade, red radial sheet, dot→card, card deck, digit roll, tilted pills, arc text, flash transition. → §7.7.
+
+## 7.8 3D icons (owner's request, 2026-10: "gapga mos png rasmlar, ikonkalar qo'sh")
+- Put a 3D icon on most speech groups and on most full-screen sheets — one icon per idea, picked by meaning (money → money, growth → chart, goal → target, global → globe, Uzbekistan → uz flag, course → grad, contact → phone/handshake, link/registration → link, analysis → search/clipboard, system/process → gear, idea → bulb, launch → rocket, "no X" → cross, done → check).
+- Source: Microsoft **Fluent Emoji 3D** (MIT), npm `@lobehub/fluent-emoji-3d@1.1.0` (256 px webp named by codepoint, e.g. `1f4b0.webp` = 💰). Convert with `ffmpeg -i <cp>.webp <name>.png`. Ready set in `assets/icons-3d/` (+ CREDITS.txt). Never use photos of real people or brand logos as icons.
+- Placement: on footage 210 px, centred above the text block (the group shifts up so the text keeps its y); on sheets 300 px above the text. Entry = rise + scale .6→1 + un-rotate + un-blur (0.6 s expo.out) with a `pop`; idle = slow float (y −14, rot 4°, sine.inOut) for the rest of its window; exit = blur-fade up.
+- Never cover the face: keep icon + text under the chin (speech text y ≈ 1250–1300 for medium shots).
+
+## 7.9 Lessons from the delivered videos
+- Wrap every word of a letter-by-letter treatment in `white-space:nowrap` and size each row by its length — otherwise words break mid-word ("biz nes"). Keep spaces as `&nbsp;` between letter spans.
+- Big numbers/counters: `white-space:nowrap` + font size from digit count, or the last digit wraps.
+- Montserrat has no U+02BB/U+02BC glyphs → the generator maps oʻ/gʻ/ʼ to ‘ ’ when rendering; keep writing ʻ ʼ in data.js.
+- whisper-cli: an initial `--prompt` in Latin Uzbek makes the output Latin instead of Cyrillic, but **never** use `--carry-initial-prompt` (it loops the prompt). If a pass loops/duplicates a span, cut that span out with ffmpeg and re-transcribe it alone, adding the offset back.
+- The model needs `huggingface.co` and its CDN (`*.hf.co`) in the environment's allowed domains; the first download is ~3 GB.
+- Q&A videos: questions → `question` sheets, answers → `captions` (owner's request for C2509).
+- Ending: if the speaker says the CTA on camera, keep the speaker visible and show the CTA as speech text — no full-screen CTA sheet (owner's feedback on seq01). Trim black tails.
+- Words the transcript makes unclear are left out, never guessed (owner: "tushunmagan joyingni tashlab ket").
 
 # 8. Before you say "done"
 

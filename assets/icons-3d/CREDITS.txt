@@ -1,0 +1,1 @@
+3D icons: Microsoft Fluent Emoji 3D (MIT), via npm @lobehub/fluent-emoji-3d@1.1.0, converted webp→png.
