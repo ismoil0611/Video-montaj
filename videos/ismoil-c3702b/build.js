@@ -53,9 +53,10 @@ function groupJS(g, gi) {
   });
   if (g.icon) {
     const it = g.icon[1];
-    out.push(`tl.fromTo("#g${gi}ico",{opacity:0,y:60,scale:.6,rotation:-14,filter:"blur(10px)"},{opacity:1,y:0,scale:1,rotation:0,filter:"blur(0px)",duration:.6,ease:"expo.out"},${q(it)});`);
-    out.push(`tl.to("#g${gi}ico",{y:-14,rotation:4,duration:${q(Math.max(0.4, g.b - it - 0.9))},ease:"sine.inOut"},${q(it + 0.6)});`);
-    out.push(`tl.to("#g${gi}ico",{opacity:0,y:-40,filter:"blur(8px)",duration:.3,ease:"power2.in"},${q(g.b - 0.3)});`);
+    const ex = g.b - 0.3, inD = q(Math.max(0.2, Math.min(0.6, ex - it))), fl = ex - (it + inD);
+    out.push(`tl.fromTo("#g${gi}ico",{opacity:0,y:60,scale:.6,rotation:-14,filter:"blur(10px)"},{opacity:1,y:0,scale:1,rotation:0,filter:"blur(0px)",duration:${inD},ease:"expo.out"},${q(it)});`);
+    if (fl > 0.4) out.push(`tl.to("#g${gi}ico",{y:-14,rotation:4,duration:${q(fl - 0.05)},ease:"sine.inOut"},${q(it + inD)});`);
+    out.push(`tl.to("#g${gi}ico",{opacity:0,y:-40,filter:"blur(8px)",duration:.3,ease:"power2.in"},${q(ex)});`);
     out.push(`sfx(${q(it + 0.05)},"pop");`);
   }
   out.push(`tl.to("#g${gi} .lnin",{opacity:0,y:-20,filter:"blur(10px)",duration:.3,ease:"power2.in"},${q(g.b - 0.3)});`);
@@ -131,7 +132,7 @@ function sheetHTML(s) {
   } else if (s.type === "red") {
     // { logo?, rows: [ [[w,t,big?], ...], ... ] } — words slide in from the right letter by letter
     inner = `<div class="stack">${s.rows
-      .map((r) => `<div class="r-row">${r.map(([w, t, big]) => `<span class="rw ${big ? "big" : ""}" data-t="${t}">${[...esc(w)].map((c) => (c === " " ? "&nbsp;" : `<b class="lt">${c}</b>`)).join("")}</span>`).join(" ")}</div>`)
+      .map((r) => `<div class="r-row" style="font-size:${Math.min(r.some((x) => x[2]) ? 150 : 92, Math.floor(800 / (r.map((x) => x[0]).join(" ").length * 0.64)))}px">${r.map(([w, t, big]) => `<span class="rw ${big ? "big" : ""}" data-t="${t}">${[...esc(w)].map((c) => (c === " " ? "&nbsp;" : `<b class="lt">${c}</b>`)).join("")}</span>`).join(" ")}</div>`)
       .join("")}</div>`;
   } else if (s.type === "card") {
     // { growT, lines:[[w,t]], pill:[[w,t]], hero:[w,t], heroSub?:[[w,t]] }
@@ -215,7 +216,7 @@ function sheetJS(s) {
   }
   // a tick under every sheet word that is not already cued
   if (["paper", "dark", "num", "question", "list", "cta"].includes(s.type)) {
-    const ws = [].concat(s.setup || [], s.key || [], s.sub || [], s.cap || [], s.words || [], (s.rows || []).flat());
+    const ws = [].concat(s.setup || [], s.key || [], s.sub || [], s.cap || [], s.words || [], s.type === "list" ? [s.title].concat(s.rows) : (s.rows || []).flat());
     ws.forEach(([, t]) => o.push(`sfx(${q(t)},"tick");`));
   }
   if (s.type === "question") {
@@ -298,7 +299,8 @@ html,body{margin:0;background:#000}
 .cas .lt{display:inline-block;font-weight:inherit}
 .fs.redbg{background:radial-gradient(ellipse 120% 70% at 50% 0%,#FF5A1F 0%,#E0261B 38%,#B00E1A 62%,#2a0306 88%,#000 100%);color:#fff}
 .r-row{font-weight:800;font-size:92px;letter-spacing:-.045em;line-height:1.05}
-.r-row .big{font-size:150px}
+.r-row .big{font-size:inherit}
+.rw{display:inline-block;white-space:nowrap}
 .rw .lt,.dg{display:inline-block;font-weight:inherit;opacity:0}
 .cardx{position:relative;z-index:2;width:760px;padding:56px 54px 60px;background:#F7F6F4;border-radius:44px;color:var(--ink);box-shadow:0 40px 80px -24px rgba(0,0,0,.55);transform-origin:50% 50%;text-align:left}
 .cx-lines{font-weight:700;font-size:46px;letter-spacing:-.03em;line-height:1.15}

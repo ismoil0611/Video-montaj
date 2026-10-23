@@ -1,0 +1,50 @@
+// ismoil-c3702b — strategy course intro (Shahzod Roʻzmetov). Kinetic Reels + ref-6 treatments + 3D icons (Fluent Emoji 3D, MIT).
+// Times: whisper.cpp large-v3 (uz, Latin prompt); 5.8–45.3 re-transcribed in two chunks (first pass looped). Text rebuilt by hand.
+// No source cuts. Seated medium-close shot: face y≈480–900 → speech text centred y≈1300, icon sits above the text.
+const Y = 1300;
+module.exports = {
+  id: "c3702b",
+  duration: 114.948,
+  sfx: [[0.05, "impact"]],
+  flashes: [],
+  groups: [
+    { a: 0.11, b: 1.08, y: Y, icon: ["wave", 0.15], lines: [{ c: "k", cascade: true, w: [["Assalomu", 0.11], ["alaykum,", 0.52]] }] },
+    { a: 1.11, b: 2.4, y: Y, lines: [{ c: "s", w: [["ismim", 1.11]] }, { c: "k", w: [["Shahzod", 1.38]] }, { c: "s", w: [["Roʻzmetov", 1.77]] }] },
+    { a: 5.8, b: 7.75, y: Y, icon: ["brain", 6.5], lines: [{ c: "s", w: [["Asosan", 5.8], ["yoʻnalishim", 6.21]] }, { c: "k", band: true, w: [["strateg-analitik", 6.77]] }] },
+    { a: 7.8, b: 11.78, y: Y, icon: ["ten", 11.02], lines: [{ c: "s", w: [["va", 7.8], ["mening", 8.03], ["strategiya", 8.6], ["boʻyicha", 9.74]] }, { c: "k", w: [["qariyb", 10.8], ["10 yil", 11.02]] }, { c: "a", w: [["davomida", 11.42]] }] },
+    { a: 11.8, b: 14.75, y: Y, icon: ["bulb", 12.54], lines: [{ c: "s", w: [["strategiya", 11.8]] }, { c: "k", w: [["qanaqa", 12.54], ["boʻlishi", 12.97]] }, { c: "s", w: [["kerakligi", 13.42], ["boʻyicha", 14.08]] }] },
+    { a: 30.88, b: 33.85, y: Y, icon: ["rocket", 32.47], lines: [{ c: "s", w: [["Va", 30.88], ["mening", 31.01], ["kursim", 31.23], ["hozir", 31.68]] }, { c: "k", cascade: true, w: [["ikkinchi", 32.01], ["potok", 32.47]] }, { c: "a", w: [["start", 33.0]] }] },
+    { a: 33.88, b: 35.85, y: Y, lines: [{ c: "s", w: [["Kursni", 33.88], ["oʻzingizga", 34.16]] }, { c: "k", w: [["tanishtiradigan", 34.68]] }, { c: "s", w: [["boʻlsam", 35.48]] }] },
+    { a: 45.19, b: 47.5, y: Y, icon: ["search", 46.21], lines: [{ c: "s", w: [["analitikaning", 45.19]] }, { c: "k", w: [["metodologiyasini", 46.21]] }] },
+    { a: 47.56, b: 51.2, y: Y, icon: ["build", 48.62], lines: [{ c: "s", w: [["oʻzingiz", 47.56], ["bilan", 47.88], ["birga", 48.24]] }, { c: "k", band: true, w: [["arxitekturasini", 48.62]] }, { c: "a", w: [["qilib chiqqan holda", 49.75]] }] },
+    { a: 51.33, b: 53.25, y: Y, icon: ["target", 51.73], lines: [{ c: "s", w: [["demak,", 51.33]] }, { c: "k", w: [["strategiya", 51.73]] }, { c: "s", w: [["qilamiz.", 52.5]] }] },
+    { a: 56.52, b: 59.3, y: Y, icon: ["briefcase", 57.79], lines: [{ c: "s", w: [["Strategiyaning", 56.52], ["ichida", 57.19], ["esa", 57.43]] }, { c: "k", w: [["biznes", 57.79], ["model", 58.15]] }, { c: "s", w: [["tushunchalari", 58.46]] }] },
+    { a: 59.36, b: 63.9, y: Y, icon: ["puzzle", 60.33], lines: [{ c: "s", w: [["biznes", 59.36], ["modellarini", 59.72]] }, { c: "k", band: true, w: [["moslashtirish", 60.33]] }, { c: "s", w: [["bozoringizga,", 61.59], ["biznesingizga", 62.26]] }] },
+    { a: 67.61, b: 71.2, y: Y, icon: ["bars", 68.09], lines: [{ c: "s", w: [["ularning", 67.61]] }, { c: "k", w: [["biznes", 68.09], ["modellari,", 68.56]] }, { c: "s", w: [["masshtab", 69.52], ["modellari", 70.11]] }] },
+    { a: 71.25, b: 76.9, y: Y, icon: ["uz", 72.0], lines: [{ c: "s", w: [["ularga", 71.61]] }, { c: "k", cascade: true, w: [["Oʻzbekiston", 72.0]] }, { c: "s", w: [["sharoitiga", 72.71], ["moslashtirgan", 74.29], ["holda", 75.21]] }] },
+    { a: 77.04, b: 78.9, y: Y, lines: [{ c: "s", w: [["Undan", 77.04], ["tashqari", 77.36]] }, { c: "k", w: [["marketingdagi", 77.99]] }] },
+    { a: 86.76, b: 90.05, y: Y, icon: ["cart", 88.01], lines: [{ c: "s", w: [["har", 86.76], ["bitta", 86.87]] }, { c: "k", band: true, w: [["sotuvchi", 88.01]] }, { c: "s", w: [["va", 88.58], ["marketologlarga", 88.78]] }] },
+    { a: 90.08, b: 91.6, y: Y, lines: [{ c: "s", w: [["marketing", 90.08]] }, { c: "k", w: [["boʻlimiga", 90.78]] }] },
+    { a: 101.0, b: 105.55, y: Y, icon: ["gear", 102.14], lines: [{ c: "s", w: [["Agarda", 101.0], ["sizni", 101.11]] }, { c: "k", w: [["strategiya", 102.14]] }, { c: "s", w: [["yoki", 103.16]] }, { c: "k", band: true, w: [["tizimlashtirish", 103.38]] }] },
+    { a: 108.48, b: 109.55, y: Y, icon: ["handshake", 108.67], lines: [{ c: "s", w: [["Va", 108.48]] }, { c: "k", cascade: true, w: [["shaxsan", 108.67], ["oʻzim", 109.06]] }] },
+    { a: 109.59, b: 111.2, y: Y, icon: ["phone", 109.6], lines: [{ c: "s", w: [["siz", 109.26], ["bilan", 109.4]] }, { c: "k", band: true, w: [["konsultatsiya", 109.59]] }, { c: "s", w: [["qilgan", 110.5], ["holda", 110.79]] }] },
+    { a: 111.24, b: 115.2, y: Y, icon: ["key", 111.83], lines: [{ c: "s", w: [["kurs", 111.24], ["sizga", 111.5]] }, { c: "k", w: [["mos", 111.83], ["keladimi", 112.03]] }, { c: "a", w: [["bitta koʻrib chiqamiz", 113.44]] }] },
+  ],
+  captions: [],
+  pills: [
+    { a: 14.8, b: 20.75, y: 1060, items: [["qanaqa standartlari bor?", 15.08, -4], ["qanaqa etaplari bor?", 17.14, 3], ["qanaqa odamlari bor?", 19.05, -3]] },
+    { a: 78.9, b: 86.7, y: 1020, items: [["kommunikatsion strategiya", 78.96, -4], ["pozitsionirovaniye", 80.58, 3], ["savdo strategiyasi", 81.72, -3], ["sotuv bloki", 82.96, 4]] },
+  ],
+  sheets: [
+    { id: "rTajriba", type: "red", enter: "cut", a: 2.4, b: 5.75, icon: ["briefcase", 2.5], rows: [[["marketing", 2.56], ["va", 3.22], ["biznes", 3.36]], [["qariyb", 4.44]], [["10", 4.77, 1], ["yillik", 4.9]], [["tajriba", 5.36]]] },
+    { id: "lSavol", type: "list", enter: "slide", a: 20.75, b: 25.35, title: ["Qanaqa…", 20.8], rows: [["analiz qilish kerak?", 21.0], ["instrumentlar kerak?", 21.8]], icon: ["tools", 21.8] },
+    { id: "cKurs", type: "card", enter: "slide", a: 25.4, b: 30.85, growT: 25.5, icon: ["grad", 28.5], lines: [["savollarni", 25.75], ["oʻzimga", 26.51], ["bergan", 27.01], ["holda", 27.53]], pill: [["butun bir", 28.04]], hero: ["kurs", 29.08], heroSub: [["ishlab chiqqanman", 29.4]] },
+    { id: "dReklama", type: "dark", enter: "circle", a: 35.9, b: 39.35, icon: ["megaphone", 37.98], rows: [[["Kursda", 35.92], ["faqatgina", 37.16]], [["reklama", 37.98, 1]], [["qilmaymiz", 38.55]]] },
+    { id: "rRaqam", type: "red", enter: "cut", a: 39.35, b: 45.15, icon: ["numbers", 40.73], rows: [[["balki", 39.4]], [["raqamlarga", 40.73, 1]], [["asoslangan,", 41.6]], [["chuqur", 43.46], ["analitikaga", 43.91, 1]]] },
+    { id: "pBosqich", type: "paper", enter: "slide", a: 53.25, b: 56.45, ghost: "ANALIZ", icon: ["clipboard", 53.4], setup: [["Birinchi", 53.32]], key: [["analiz", 53.78]], sub: [["keyin", 54.77], ["strategiya", 55.04], ["qilamiz", 55.73]] },
+    { id: "rGlobal", type: "red", enter: "cut", a: 63.9, b: 67.55, icon: ["globe", 65.37], rows: [[["keyin", 63.97], ["masshtab", 64.06], ["modellar,", 64.53]], [["global", 65.37, 1]], [["benchmarklarni", 65.9]], [["olgan", 66.96], ["holda", 67.18]]] },
+    { id: "pRaqam", type: "paper", enter: "slide", a: 91.6, b: 94.95, ghost: "PLAN", icon: ["chart", 92.2], setup: [["toʻgʻridan-toʻgʻri", 92.16]], key: [["raqam", 93.01]], sub: [["bilan", 93.91], ["plan", 94.11], ["qoʻyilgan", 94.37]] },
+    { id: "cKpi", type: "card", enter: "slide", a: 94.95, b: 100.95, growT: 95.0, icon: ["check", 96.42], lines: [["KPI-lar", 95.01], ["ishlab", 95.39], ["berilgan", 95.78]], pill: [["toʻliq tizimni", 96.42]], hero: ["birga", 99.12], heroSub: [["shu kurs davomida", 99.57]] },
+    { id: "dLink", type: "dark", enter: "circle", a: 105.6, b: 108.45, icon: ["link", 106.1], rows: [[["ssilka", 106.1], ["orqali", 106.43]], [["registratsiya", 106.82, 1]], [["qiling", 107.55]]] },
+  ],
+};
